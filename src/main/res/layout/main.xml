@@ -4,16 +4,8 @@
   android:layout_width="wrap_content"
   android:layout_height="wrap_content">
 
-  <android.support.v4.view.ViewPager
-    android:id="@+id/viewpager"
-    android:layout_weight="1"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" />
-
-  <com.viewpagerindicator.CirclePageIndicator
-    android:id="@+id/titles"
-    android:layout_margin="20dp"
-    android:paddingBottom="20dp"
-    android:layout_height="wrap_content"
-    android:layout_width="fill_parent" />
+  <idv.brianhsu.maidroid.ui.DialogFrame 
+    android:id="@+id/dialogFrame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 </LinearLayout> 

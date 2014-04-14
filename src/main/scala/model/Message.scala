@@ -18,7 +18,11 @@ object MaidMaro {
   }
 }
 
-class Message(sprite: DrawableResourceID, message: String, voice: Option[VoiceResourceID])
+case class Message(sprite: DrawableResourceID, message: String, voice: Option[VoiceResourceID])
+
+object Message {
+  def apply(sprite: DrawableResourceID, message: String) = new Message(sprite, message, None)
+}
 
 
 
