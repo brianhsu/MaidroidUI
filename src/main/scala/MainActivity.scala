@@ -14,6 +14,9 @@ import idv.brianhsu.maidroid.ui.model._
 import android.support.v4.view.ViewPager.SimpleOnPageChangeListener
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
+import android.view.animation.AnimationUtils
+import android.view.animation.Animation
+import android.view.animation.Animation.AnimationListener
 
 class DialogFrame(context: Context, attrs: AttributeSet) extends LinearLayout(context, attrs) 
 {
@@ -28,11 +31,38 @@ class DialogFrame(context: Context, attrs: AttributeSet) extends LinearLayout(co
                               asInstanceOf[LayoutInflater]
 
   private lazy val pageChangeListener = new SimpleOnPageChangeListener() {
+
+    private var previousSpriteID = 0
+
     override def onPageSelected(position: Int) {
-      android.util.Log.v("Maidroid", "QQQQQ..." + position)
       val spriteDrawableID = messages(position).sprite
       val spriteBitmapHolder = spriteCache.get(spriteDrawableID)
-      spriteBitmapHolder.foreach { imageView.setImageBitmap }
+      val isSameSprite = previousSpriteID == spriteDrawableID
+
+      if (!isSameSprite) {
+        spriteBitmapHolder.foreach { crossFadeImage }
+      }
+
+      previousSpriteID = spriteDrawableID
+    }
+
+    private def crossFadeImage(newImage: Bitmap) {
+      val animationOut = AnimationUtils.loadAnimation(context, android.R.anim.fade_out)
+      val animationIn = AnimationUtils.loadAnimation(context, android.R.anim.fade_in)
+
+      animationIn.setDuration(250)
+      animationOut.setDuration(250)
+
+      animationOut.setAnimationListener(new AnimationListener() {
+        override def onAnimationRepeat(animation: Animation) {}
+        override def onAnimationStart(animation: Animation) {}
+        override def onAnimationEnd(animation: Animation) {
+          imageView.setImageBitmap(newImage)
+          imageView.startAnimation(animationIn)
+        }
+      })
+
+      imageView.startAnimation(animationOut)
     }
   }
 
