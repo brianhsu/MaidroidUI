@@ -11,17 +11,30 @@ import android.view.View
 import android.view.ViewGroup
 import TypedResource._
 import idv.brianhsu.maidroid.ui.model._
+import android.support.v4.view.ViewPager.SimpleOnPageChangeListener
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
 
+class DialogFrame(context: Context, attrs: AttributeSet) extends LinearLayout(context, attrs) 
+{
+  private var adapterHolder: Option[MessageAdapter] = None
+  private var messages: Vector[Message] = Vector.empty
+  private var spriteCache: Map[DrawableResourceID, Bitmap] = Map.empty
 
-class DialogFrame(context: Context, attrs: AttributeSet) extends LinearLayout(context, attrs) {
-
+  private lazy val imageView = this.findView(TR.dialogFrameImageView)
   private lazy val viewPager = this.findView(TR.dialogFrameViewPager)
   private lazy val pagerIndicator = this.findView(TR.dialogFrameViewPagerIndicator)
   private lazy val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE).
                               asInstanceOf[LayoutInflater]
 
-  var adapterHolder: Option[MessageAdapter] = None
-  var messages: Vector[Message] = Vector.empty
+  private lazy val pageChangeListener = new SimpleOnPageChangeListener() {
+    override def onPageSelected(position: Int) {
+      android.util.Log.v("Maidroid", "QQQQQ..." + position)
+      val spriteDrawableID = messages(position).sprite
+      val spriteBitmapHolder = spriteCache.get(spriteDrawableID)
+      spriteBitmapHolder.foreach { imageView.setImageBitmap }
+    }
+  }
 
   private def createViewList(messages: List[Message]) = {
 
@@ -33,14 +46,27 @@ class DialogFrame(context: Context, attrs: AttributeSet) extends LinearLayout(co
     }
   }
 
-  def setMessages(messages: List[Message]) {
-    this.messages = messages.toVector
-    this.adapterHolder = Some(new MessageAdapter(createViewList(messages)))
-    this.adapterHolder.foreach { viewPager.setAdapter }
-    this.pagerIndicator.setViewPager(this.viewPager)
+  def createSpriteCache(messages: List[Message]): Map[DrawableResourceID, Bitmap] = {
+    val drawableIDs = messages.map(_.sprite).toSet
+    drawableIDs.map { drawableID =>
+      drawableID -> BitmapFactory.decodeResource(context.getResources(), drawableID)
+    }.toMap
   }
 
-  inflater.inflate(R.layout.dialog_frame, this, true)
+  def setMessages(messages: List[Message]) {
+    this.messages = messages.toVector
+    this.spriteCache = createSpriteCache(messages)
+    this.adapterHolder = Some(new MessageAdapter(createViewList(messages)))
+    this.adapterHolder.foreach { viewPager.setAdapter }
+    this.pagerIndicator.setViewPager(viewPager)
+    this.pagerIndicator.setOnPageChangeListener(pageChangeListener)
+  }
+
+  def initView() {
+    inflater.inflate(R.layout.dialog_frame, this, true)
+  }
+
+  initView()
 }
 
 import TypedResource._
@@ -65,7 +91,15 @@ class MainActivity extends Activity with TypedViewHolder
   override def onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main)
-    dialogFrame.setMessages(Message(MaidMaro.Half.Happy, "QQQQQ") :: Message(MaidMaro.Half.Angry, "SSSS") :: Nil)
+    dialogFrame.setMessages(
+      Message(MaidMaro.Half.Happy, "QQQQQ") :: 
+      Message(MaidMaro.Half.Angry, "SSSS") :: 
+      Message(MaidMaro.Half.Angry, "SSSS") :: 
+      Message(MaidMaro.Half.Happy, "SSSS") :: 
+      Message(MaidMaro.Half.Angry, "SSSS") :: 
+      Message(MaidMaro.Half.Panic, "SSSS") :: 
+      Message(MaidMaro.Half.Normal, "SSSS") :: 
+      Nil)
   }
 
 
