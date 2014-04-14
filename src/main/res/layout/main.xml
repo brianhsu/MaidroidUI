@@ -4,5 +4,8 @@
   android:layout_width="wrap_content"
   android:layout_height="wrap_content">
 
-  <idv.brianhsu.maidroid.ui.MyView android:layout_width="match_parent" android:layout_height="match_parent"/>
+  <idv.brianhsu.maidroid.ui.DialogFrame 
+    android:id="@+id/dialogFrame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 </LinearLayout> 
