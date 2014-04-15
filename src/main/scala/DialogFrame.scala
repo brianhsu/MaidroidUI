@@ -67,7 +67,7 @@ class DialogFrame(context: Context, attrs: AttributeSet) extends LinearLayout(co
   private def createViewList(messages: List[Message]) = {
 
     messages.map { message =>
-      val view = inflater.inflate(R.layout.dialog_item, null)
+      val view = inflater.inflate(R.layout.maidroid_ui_dialog_item, null)
       val textView = view.findView(TR.dialogItemTextView)
       textView.setText(message.message)
       view
@@ -90,6 +90,6 @@ class DialogFrame(context: Context, attrs: AttributeSet) extends LinearLayout(co
     this.pagerIndicator.setOnPageChangeListener(pageChangeListener)
   }
 
-  inflater.inflate(R.layout.dialog_frame, this, true)
+  inflater.inflate(R.layout.maidroid_ui_dialog_frame, this, true)
 }
 

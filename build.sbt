@@ -10,6 +10,8 @@ version := "0.0.1"
  
 scalaVersion := "2.10.4"
 
+typedResources := false
+
 organization := "idv.brianhsu.maidroid.ui"
 
 resolvers += "populov" at "http://dl.bintray.com/populov/maven"
