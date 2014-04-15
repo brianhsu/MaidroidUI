@@ -88,6 +88,10 @@ class DialogFrame(context: Context, attrs: AttributeSet) extends LinearLayout(co
     this.adapterHolder.foreach { viewPager.setAdapter }
     this.pagerIndicator.setViewPager(viewPager)
     this.pagerIndicator.setOnPageChangeListener(pageChangeListener)
+
+    if (!messages.isEmpty) {
+      imageView.setImageBitmap(spriteCache(messages(0).sprite))
+    }
   }
 
   inflater.inflate(R.layout.maidroid_ui_dialog_frame, this, true)
