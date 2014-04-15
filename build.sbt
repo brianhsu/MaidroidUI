@@ -10,8 +10,6 @@ version := "0.0.1"
  
 scalaVersion := "2.10.4"
 
-typedResources := false
-
 organization := "idv.brianhsu.maidroid.ui"
 
 resolvers += "populov" at "http://dl.bintray.com/populov/maven"
@@ -30,3 +28,7 @@ libraryProject := true
 run <<= run in Android
  
 install <<= install in Android
+
+publishTo := Some(
+  Resolver.sftp("bone", "bone.twbbs.org.tw", "public_html/ivy")
+)
