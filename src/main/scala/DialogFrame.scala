@@ -28,9 +28,9 @@ class DialogFrame(context: Context, attrs: AttributeSet) extends LinearLayout(co
   private lazy val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE).
                               asInstanceOf[LayoutInflater]
 
-  private lazy val pageChangeListener = new SimpleOnPageChangeListener() {
+  private var previousSpriteID = 0
 
-    private var previousSpriteID = 0
+  private lazy val pageChangeListener = new SimpleOnPageChangeListener() {
 
     override def onPageSelected(position: Int) {
       val spriteDrawableID = messages(position).sprite
@@ -91,6 +91,7 @@ class DialogFrame(context: Context, attrs: AttributeSet) extends LinearLayout(co
 
     if (!messages.isEmpty) {
       imageView.setImageBitmap(spriteCache(messages(0).sprite))
+      previousSpriteID = messages(0).sprite
     }
   }
 
