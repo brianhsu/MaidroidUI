@@ -39,12 +39,13 @@ object AsyncUI {
     }
 
     def onSuccessInUI(callback: T => Any)(implicit activity: Activity) {
-      future.foreach { result => 
-        activity.runOnUiThread(new Runnable() {
-          override def run() {
-            callback(result)
-          }
-        })
+      future.onSuccess { 
+        case result => 
+          activity.runOnUiThread(new Runnable() {
+            override def run() {
+              callback(result)
+            }
+          })
       }
     }
   }
