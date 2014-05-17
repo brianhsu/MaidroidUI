@@ -12,7 +12,7 @@
     android:layout_marginRight="5dp"
     android:baselineAlignBottom="false"
     android:adjustViewBounds="true"
-    android:scaleType="centerInside"
+    android:scaleType="fitCenter"
     android:src="@drawable/maro_normal_half" />
 
   <LinearLayout 
