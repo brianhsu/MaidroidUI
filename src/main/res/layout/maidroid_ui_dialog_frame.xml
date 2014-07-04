@@ -7,10 +7,9 @@
   <ImageView 
     android:id="@+id/dialogFrameImageView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_weight="2.2"
     android:layout_marginRight="5dp"
-    android:baselineAlignBottom="false"
     android:adjustViewBounds="true"
     android:scaleType="fitCenter"
     android:src="@drawable/maro_normal_half" />
