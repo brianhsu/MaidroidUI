@@ -8,11 +8,13 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
 import android.util.AttributeSet
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.Animation.AnimationListener
 import android.view.animation.AnimationUtils
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import android.widget.ImageView
 
 import TypedResource._
 
@@ -79,6 +81,14 @@ class DialogFrame(context: Context, attrs: AttributeSet) extends LinearLayout(co
     drawableIDs.map { drawableID =>
       drawableID -> BitmapFactory.decodeResource(context.getResources(), drawableID)
     }.toMap
+  }
+
+  def setOnImageClick(callback: ImageView => Any) {
+    this.imageView.setOnClickListener(new View.OnClickListener() {
+      override def onClick(view: View) {
+        callback(imageView)
+      }
+    })
   }
 
   def setMessages(messages: List[Message]) {

@@ -6,7 +6,7 @@ android.Plugin.androidBuildAar
  
 name := "maidroidui"
 
-version := "0.0.4"
+version := "0.0.5"
  
 scalaVersion := "2.10.4"
 
@@ -30,6 +30,6 @@ run <<= run in Android
 install <<= install in Android
 
 publishTo := Some(
-  Resolver.sftp("bone", "bone.twbbs.org.tw", "public_html/ivy")
+  Resolver.sftp("bone", "bone.twbbs.org.tw", "site/ROOT/ivy/")
 )
 
