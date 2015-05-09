@@ -6,9 +6,9 @@ android.Plugin.androidBuildAar
  
 name := "maidroidui"
 
-version := "0.0.5"
+version := "0.0.6"
  
-scalaVersion := "2.10.4"
+scalaVersion := "2.11.6"
 
 organization := "idv.brianhsu.maidroid.ui"
 
@@ -18,6 +18,8 @@ libraryDependencies ++= Seq(
   aar("com.viewpagerindicator" % "library" % "2.4.1"),
   "com.android.support" % "support-v4" % "19.1.+"
 )
+
+dependencyOverrides += "com.android.support" % "support-v4" % "19.1.+"
 
 scalacOptions := Seq("-feature")
 
