@@ -27,7 +27,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content" />
 
-    <com.viewpagerindicator.CirclePageIndicator
+    <net.rdrei.android.viewpagerindicator.CirclePageIndicator
       android:id="@+id/dialogFrameViewPagerIndicator"
       android:paddingTop="5dp"
       android:layout_height="wrap_content"

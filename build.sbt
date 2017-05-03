@@ -6,16 +6,16 @@ android.Plugin.androidBuildAar
  
 name := "maidroidui"
 
-version := "0.0.6"
+version := "0.0.7"
  
 scalaVersion := "2.11.6"
 
 organization := "idv.brianhsu.maidroid.ui"
 
-resolvers += "populov" at "http://dl.bintray.com/populov/maven"
+resolvers += "staging" at "https://oss.sonatype.org/content/groups/staging/"
 
 libraryDependencies ++= Seq(
-  aar("com.viewpagerindicator" % "library" % "2.4.1"),
+  aar("net.rdrei.android.viewpagerindicator" % "library" % "2.5.0-SNAPSHOT"),
   "com.android.support" % "support-v4" % "19.1.+"
 )
 
